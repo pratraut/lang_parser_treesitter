@@ -1,0 +1,20 @@
+# -- Base
+.*
+!.gitignore
+
+_*
+# '_' in src dir, ok.
+!**/src/**/_*
+
+*.lock
+*.lockb
+*.log
+
+# -- Rust
+target/
+# !Cargo.lock # Commented by default
+!.cargo/
+# -- AIPack
+# By default ignore all .aipack path or files
+# (this will also ignore the .aipack package files)
+.aipack
