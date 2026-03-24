@@ -1,0 +1,58 @@
+[package]
+name        = "lang_parser"
+version     = "0.1.0"
+edition     = "2021"
+description = "Tree-sitter powered, extensible multi-language call-chain analyser"
+license     = "MIT"
+build       = "build.rs"
+
+# ── Library ──────────────────────────────────────────────────────────────────
+[lib]
+name = "lang_parser"
+path = "src/lib.rs"
+
+# ── Examples ─────────────────────────────────────────────────────────────────
+[[example]]
+name = "analyze"
+path = "examples/analyze.rs"
+
+# ── Runtime dependencies ──────────────────────────────────────────────────────
+[dependencies]
+# Core tree-sitter runtime (pure Rust + embedded C shim via cc).
+tree-sitter = "0.26.7"
+
+# ── Language grammars ─────────────────────────────────────────────────────────
+# Each grammar crate ships a tiny C parser compiled by its own build.rs.
+# All grammar crates must be ABI-compatible with the tree-sitter runtime above.
+
+# Solidity — community grammar (JoranHonig / ethereum-solidity-ts)
+# https://crates.io/crates/tree-sitter-solidity
+tree-sitter-solidity = "1.2.13"
+
+# Rust — official tree-sitter org grammar
+# https://crates.io/crates/tree-sitter-rust
+tree-sitter-rust = "0.21"
+
+# Python — official tree-sitter org grammar
+# https://crates.io/crates/tree-sitter-python
+tree-sitter-python = "0.21"
+
+# ── Adding more languages ─────────────────────────────────────────────────────
+# To add Go: uncomment and implement src/languages/go/mod.rs
+# tree-sitter-go = "0.20"
+#
+# To add TypeScript:
+# tree-sitter-typescript = "0.20"
+#
+# To add JavaScript:
+# tree-sitter-javascript = "0.21"
+#
+# To add C/C++:
+# tree-sitter-c = "0.20"
+# tree-sitter-cpp = "0.22"
+
+# ── Build dependencies ────────────────────────────────────────────────────────
+[build-dependencies]
+# cc is a transitive dep of all grammar crates; listed explicitly for
+# any custom compilation flags needed in build.rs.
+cc = "1"
